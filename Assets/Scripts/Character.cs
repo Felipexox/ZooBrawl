@@ -4,15 +4,89 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
     [SerializeField]
-    protected CharacterPoints points;
-
-    protected MoveSet moveSet = new MoveSet();
+    private CharacterPoints basePoints;
+    private CharacterPoints currentPoints;
 
     [SerializeField]
-    protected List<EnumSpecialAbilities> specialAbilities;
+    private List<EnumSpecialAbilities> specialAbilities = new List<EnumSpecialAbilities>();
+
+    [SerializeField]
+    private List<EnumMoveSet> moveSets = new List<EnumMoveSet>();
+
+    private bool isHuman;
+
+    public void InviteToBattle(Character inviter)
+    {
+        Battle.Instance.StartBattle(this, inviter);
+    }
+
+    public CharacterPoints BasePoints
+    {
+        get
+        {
+            return basePoints;
+        }
+
+        set
+        {
+            basePoints = value;
+        }
+    }
+
+    public List<EnumSpecialAbilities> SpecialAbilities
+    {
+        get
+        {
+            return specialAbilities;
+        }
+
+        set
+        {
+            specialAbilities = value;
+        }
+    }
+
+    public List<EnumMoveSet> MoveSets
+    {
+        get
+        {
+            return moveSets;
+        }
+
+        set
+        {
+            moveSets = value;
+        }
+    }
+
+    public CharacterPoints CurrentPoints
+    {
+        get
+        {
+            return currentPoints;
+        }
+
+        set
+        {
+            currentPoints = value;
+        }
+    }
+
+    public bool IsHuman
+    {
+        get
+        {
+            return isHuman;
+        }
+
+        set
+        {
+            isHuman = value;
+        }
+    }
 
     private void Start()
     {
-        Debug.Log(moveSet.Moves[EnumMoveSet.CHIFRADA]);
+        Debug.Log(MoveSet.moves[MoveSets[0]]);
     }
 }

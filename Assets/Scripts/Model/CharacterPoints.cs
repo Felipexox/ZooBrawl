@@ -12,9 +12,9 @@ public class CharacterPoints {
     [SerializeField]
     private float luck;
     [SerializeField]
-    private float velocity;
+    private float speed;
 
-    protected float Hp
+    public float Hp
     {
         get
         {
@@ -27,7 +27,7 @@ public class CharacterPoints {
         }
     }
 
-    protected float Strength
+    public float Strength
     {
         get
         {
@@ -40,7 +40,7 @@ public class CharacterPoints {
         }
     }
 
-    protected float Defense
+    public float Defense
     {
         get
         {
@@ -53,7 +53,7 @@ public class CharacterPoints {
         }
     }
 
-    protected float Luck
+    public float Luck
     {
         get
         {
@@ -66,16 +66,16 @@ public class CharacterPoints {
         }
     }
 
-    protected float Velocity
+    public float Speed
     {
         get
         {
-            return velocity;
+            return speed;
         }
 
         set
         {
-            velocity = value;
+            speed = value;
         }
     }
 }

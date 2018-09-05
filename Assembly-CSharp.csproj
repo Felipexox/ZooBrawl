@@ -65,9 +65,12 @@
     <Compile Include="Assets\Scripts\Enum\EnumMoveSet.cs" />
     <Compile Include="Assets\Scripts\Enum\EnumSpecialAbillities.cs" />
     <Compile Include="Assets\Scripts\ImageToVector.cs" />
+    <Compile Include="Assets\Scripts\Managers\Battle.cs" />
+    <Compile Include="Assets\Scripts\Managers\UIAttackManager.cs" />
     <Compile Include="Assets\Scripts\MeshGenerator.cs" />
     <Compile Include="Assets\Scripts\Model\CharacterPoints.cs" />
     <Compile Include="Assets\Scripts\Model\MoveSet.cs" />
+    <Compile Include="Assets\Scripts\UI\UIAttackItem.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/vinic/Desktop/Unity Projects/ZooBrawl/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

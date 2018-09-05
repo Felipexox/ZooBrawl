@@ -90,7 +90,7 @@ public class MeshGenerator : MonoBehaviour {
 	int[] CreateTriangles(int vertice)
     {
         int triangles = CalcTriangle(vertice);
-        Debug.Log(triangles);
+        //Debug.Log(triangles);
         List<int> tempTriangles = new List<int>();
         for(int i = 0; i < triangles; i++)
         {
@@ -103,7 +103,7 @@ public class MeshGenerator : MonoBehaviour {
         }
         for(int i = 0; i < tempTriangles.Count; i++)
         {
-            Debug.Log(tempTriangles.Count);
+           // Debug.Log(tempTriangles.Count);
         }
         if(vertice %2 !=0)
         {

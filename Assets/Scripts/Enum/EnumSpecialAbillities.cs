@@ -2,5 +2,7 @@
 {
     POISONER,
     SCORCHER,
-    FLYER
+    FLYER,
+    TANK,
+    FAST
 }
