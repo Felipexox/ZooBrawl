@@ -189,8 +189,8 @@ public class MeshGenerator : MonoBehaviour {
         
         for (int i = 0; i < Vertices.Count; i++)
         {
-
-            float radius = (Mathf.Abs(Vertices[i].x)/Vertices[i].x) * Vector3.Distance(transform.position, Vertices[i]);
+            Vector3 nulo = Vector3.zero;
+            float radius = (Mathf.Abs(Vertices[i].x)/Vertices[i].x) * Vector3.Distance(nulo, Vertices[i]);
             float arcTg = Mathf.Atan(Vertices[i].y / Vertices[i].x);
             Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg) , radius * Mathf.Sin( (transform.localEulerAngles.z * Mathf.Deg2Rad)+ arcTg));
             Gizmos.DrawSphere(transform.position + rotation , 0.1f);
@@ -222,7 +222,9 @@ public class MeshGenerator : MonoBehaviour {
 
         set
         {
+          
             vertices = value;
+            
         }
     }
 
