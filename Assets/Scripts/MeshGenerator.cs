@@ -15,9 +15,11 @@ public class MeshGenerator : MonoBehaviour {
     private int[] triangules;
     [SerializeField]
     private Vector2[] uv;
+    public Mesh mesh;
+
     private void Start()
     {
-     
+        
     }
     private void Update()
     {
@@ -25,7 +27,7 @@ public class MeshGenerator : MonoBehaviour {
     }
     void CreateMesh()
     {
-        Mesh mesh = new Mesh();
+        mesh = new Mesh();
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.mesh = mesh;
 
