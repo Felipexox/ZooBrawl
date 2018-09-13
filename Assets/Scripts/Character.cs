@@ -87,6 +87,6 @@ public class Character : MonoBehaviour {
 
     private void Start()
     {
-        Debug.Log(MoveSet.moves[MoveSets[0]]);
+       
     }
 }

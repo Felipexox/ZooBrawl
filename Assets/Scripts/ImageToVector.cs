@@ -22,7 +22,5 @@ public class ImageToVector : MonoBehaviour {
                 }
             }
         }
-        MeshGenerator.instance.SubVertices(vectors);
-    
     }
 }

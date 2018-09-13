@@ -1,65 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class MeshGenerator : MonoBehaviour {
+    [Header("Mesh Propriety")]
     [SerializeField]
-    private float multiplier;
+    private int verticeAmount;
+
+    [Header("Internal Controller")]
     [SerializeField]
     private List<Vector3> vertices = new List<Vector3>();
-
-    public static MeshGenerator instance;
     [SerializeField]
     private Vector3[] normalsV;
-
     [SerializeField]
     private int[] triangules;
     [SerializeField]
-    private int verticeAmount;
-    [SerializeField]
     private Vector2[] uv;
-    int vertice = 0;
-    private void Awake()
+    private void Start()
     {
-        instance = this;
+     
     }
-    public void SubVertices(List<Vector3> pVertices)
+    private void Update()
     {
-        //vertices = pVertices;
+        CreateMesh();
     }
-    // Use this for initialization
-    void Start() {
-
-
-      //  vertices = GeneratePositions(verticeAmount);
-      //  OrganicModel(27, 27, 27, 0.8f);
-        //triangules = new int[(vertices.Count - 2) * 3];
-    }
- 
     void CreateMesh()
     {
         Mesh mesh = new Mesh();
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.mesh = mesh;
 
-        mesh.vertices = vertices.ToArray();
+        mesh.vertices = Vertices.ToArray();
 
-        normalsV = new Vector3[vertices.Count];
-        for (int i = 0; i < normalsV.Length; i++)
+        NormalsV = new Vector3[Vertices.Count];
+        for (int i = 0; i < NormalsV.Length; i++)
         {
-            normalsV[i] = Vector3.back;
+            NormalsV[i] = Vector3.back;
         }
 
-        uv = new Vector2[vertices.Count];
-        for (int i = 0; i < vertices.Count; i++)
+        Uv = new Vector2[Vertices.Count];
+        for (int i = 0; i < Vertices.Count; i++)
         {
-            uv[i] = vertices[i];
+            Uv[i] = Vertices[i];
         }
-        triangules = CreateTriangles(vertices.Count);
+        Triangules = CreateTriangles(Vertices.Count);
         // triangules.Length
-        mesh.normals = normalsV;
-        mesh.triangles = triangules;
-        mesh.uv = uv;
+        mesh.normals = NormalsV;
+        mesh.triangles = Triangules;
+        mesh.uv = Uv;
 
     }
  
@@ -93,10 +80,12 @@ public class MeshGenerator : MonoBehaviour {
 
         return tempPositions;
     }
+
     int CalcTriangle(int vertices)
     {
         return ((vertices - 2));
     }
+
 	int[] CreateTriangles(int vertice)
     {
         int triangles = CalcTriangle(vertice);
@@ -121,13 +110,14 @@ public class MeshGenerator : MonoBehaviour {
         }
         return tempTriangles.ToArray();
     }
+
     void OrganicModel(int lastIndex, int index ,int originIndex, float mult)
     {
         int[] indexesNearest = IndexNearest(index);
         if(mult >= 0.25f)
         {
-            Vector3 direction = ((vertices[lastIndex] - vertices[index]).normalized) * mult;
-            vertices[index] += direction;
+            Vector3 direction = ((Vertices[lastIndex] - Vertices[index]).normalized) * mult;
+            Vertices[index] += direction;
             if(indexesNearest[0] == originIndex && indexesNearest[1] == originIndex)
             {
                 OrganicModel(originIndex, indexesNearest[0], originIndex, mult / 1.8f);
@@ -158,59 +148,123 @@ public class MeshGenerator : MonoBehaviour {
         float menorValor2 = 0;
         if (index!=0)
         {
-            menorValor = Vector3.Distance(vertices[index], vertices[0]);
+            menorValor = Vector3.Distance(Vertices[index], Vertices[0]);
             indexes[0] = 0;
-            menorValor2 = Vector3.Distance(vertices[index], vertices[0]);
+            menorValor2 = Vector3.Distance(Vertices[index], Vertices[0]);
             indexes[1] = 0;
         }
         else
         {
-            menorValor = Vector3.Distance(vertices[index], vertices[1]);
+            menorValor = Vector3.Distance(Vertices[index], Vertices[1]);
             indexes[0] = 1;
-            menorValor2 = Vector3.Distance(vertices[index], vertices[1]);
+            menorValor2 = Vector3.Distance(Vertices[index], Vertices[1]);
             indexes[1] = 1;
         } 
-        for (int i=0;i<vertices.Count;i++)
+        for (int i=0;i<Vertices.Count;i++)
         {
-            if(Vector3.Distance(vertices[index],vertices[i]) < menorValor && index != i)
+            if(Vector3.Distance(Vertices[index],Vertices[i]) < menorValor && index != i)
             {
-                menorValor = Vector3.Distance(vertices[index], vertices[i]);
+                menorValor = Vector3.Distance(Vertices[index], Vertices[i]);
 
                 indexes[0] = i;
             }
         }
-        for (int i = 0; i < vertices.Count; i++)
+        for (int i = 0; i < Vertices.Count; i++)
         {
-            if (Vector3.Distance(vertices[index], vertices[i]) < menorValor2 && index != i && indexes[0] != i)
+            if (Vector3.Distance(Vertices[index], Vertices[i]) < menorValor2 && index != i && indexes[0] != i)
             {
-                menorValor2 = Vector3.Distance(vertices[index], vertices[i]);
+                menorValor2 = Vector3.Distance(Vertices[index], Vertices[i]);
 
                 indexes[1] = i;
             }
         }
         return indexes;
     }
-     // Update is called once per frame
-	void Update () {
-        CreateMesh();
-      
-    }
-   
 
+   
     private void OnDrawGizmosSelected()
     {
         
         Gizmos.color = Color.red;
         
-        for (int i = 0; i < vertices.Count; i++)
+        for (int i = 0; i < Vertices.Count; i++)
         {
 
-            float radius = (Mathf.Abs(vertices[i].x)/vertices[i].x) * Vector3.Distance(transform.position, vertices[i]);
-            float arcTg = Mathf.Atan(vertices[i].y / vertices[i].x);
-            Debug.Log(arcTg);
+            float radius = (Mathf.Abs(Vertices[i].x)/Vertices[i].x) * Vector3.Distance(transform.position, Vertices[i]);
+            float arcTg = Mathf.Atan(Vertices[i].y / Vertices[i].x);
             Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg) , radius * Mathf.Sin( (transform.localEulerAngles.z * Mathf.Deg2Rad)+ arcTg));
             Gizmos.DrawSphere(transform.position + rotation , 0.1f);
 
         }
     }
+
+
+
+    public int VerticeAmount
+    {
+        get
+        {
+            return verticeAmount;
+        }
+
+        set
+        {
+            verticeAmount = value;
+        }
+    }
+
+    public List<Vector3> Vertices
+    {
+        get
+        {
+            return vertices;
+        }
+
+        set
+        {
+            vertices = value;
+        }
+    }
+
+    public Vector3[] NormalsV
+    {
+        get
+        {
+            return normalsV;
+        }
+
+        set
+        {
+            normalsV = value;
+        }
+    }
+
+    public int[] Triangules
+    {
+        get
+        {
+            return triangules;
+        }
+
+        set
+        {
+            triangules = value;
+        }
+    }
+
+    public Vector2[] Uv
+    {
+        get
+        {
+            return uv;
+        }
+
+        set
+        {
+            uv = value;
+        }
+    }
+
+ 
+ 
 }
