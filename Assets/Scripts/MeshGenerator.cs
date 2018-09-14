@@ -200,7 +200,36 @@ public class MeshGenerator : MonoBehaviour {
         }
     }
 
+    int currentVertice = -1;
 
+    private void OnGUI()
+    {
+        Vector2 mousePosition = Input.mousePosition;
+
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            Vector2 position = Camera.main.WorldToScreenPoint(vertices[i]);
+           
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (Vector2.Distance(position, mousePosition) < 5)
+                {
+                    currentVertice = i;
+                }
+            }
+            
+          
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            currentVertice = -1;
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && currentVertice != -1)
+        {
+            Vector2 currentPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            vertices[currentVertice] = currentPosition;
+        }
+    }
 
     public int VerticeAmount
     {
