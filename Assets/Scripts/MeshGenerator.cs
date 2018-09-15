@@ -5,6 +5,8 @@ public class MeshGenerator : MonoBehaviour {
     [Header("Mesh Propriety")]
     [SerializeField]
     private int verticeAmount;
+    private float z = 0;
+    private Vector3 teste = Vector3.zero;
 
     [Header("Internal Controller")]
     [SerializeField]
@@ -24,6 +26,25 @@ public class MeshGenerator : MonoBehaviour {
     private void Update()
     {
         CreateMesh();
+
+        // tentei fazer isso
+
+        /*if(transform.position.z!=z)
+        {
+            for(int i=0;i<Vertices.Count;i++)
+            {
+                vertices[i] = RotByAngle(Vertices[i]);
+            }
+        }
+        if(transform.position!=teste)
+        {
+            for (int i = 0; i < Vertices.Count; i++)
+            {
+                vertices[i] = transform.position + RotByAngle(vertices[i]);
+            }
+        }
+        z = transform.position.z;
+        teste = transform.position;*/
     }
     void CreateMesh()
     {
@@ -191,10 +212,8 @@ public class MeshGenerator : MonoBehaviour {
         
         for (int i = 0; i < Vertices.Count; i++)
         {
-            Vector3 nulo = Vector3.zero;
-            float radius = (Mathf.Abs(Vertices[i].x)/Vertices[i].x) * Vector3.Distance(nulo, Vertices[i]);
-            float arcTg = Mathf.Atan(Vertices[i].y / Vertices[i].x);
-            Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg) , radius * Mathf.Sin( (transform.localEulerAngles.z * Mathf.Deg2Rad)+ arcTg));
+
+            Vector3 rotation = RotByAngle(vertices[i]);
             Gizmos.DrawSphere(transform.position + rotation , 0.1f);
 
         }
@@ -208,7 +227,7 @@ public class MeshGenerator : MonoBehaviour {
 
         for (int i = 0; i < vertices.Count; i++)
         {
-            Vector2 position = Camera.main.WorldToScreenPoint(vertices[i]);
+            Vector2 position = Camera.main.WorldToScreenPoint(transform.position +RotByAngle(vertices[i]));
            
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -222,6 +241,7 @@ public class MeshGenerator : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
+            vertices[currentVertice] = mousePosition;
             currentVertice = -1;
         }
         if (Input.GetKey(KeyCode.Mouse0) && currentVertice != -1)
@@ -229,6 +249,15 @@ public class MeshGenerator : MonoBehaviour {
             Vector2 currentPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             vertices[currentVertice] = currentPosition;
         }
+    }
+
+    public Vector3 RotByAngle(Vector3 Vertice)
+    {
+        Vector3 nulo = Vector3.zero;
+        float radius = (Mathf.Abs(Vertice.x) / Vertice.x) * Vector3.Distance(nulo, Vertice);
+        float arcTg = Mathf.Atan(Vertice.y / Vertice.x);
+        Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg), radius * Mathf.Sin((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg));
+        return rotation;
     }
 
     public int VerticeAmount
