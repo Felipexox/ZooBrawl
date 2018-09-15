@@ -247,9 +247,9 @@ public class MeshGenerator : MonoBehaviour {
         {
        
             Vector2 mouseToWorld = Camera.main.ScreenToWorldPoint(mousePosition) ;
-            Vector3 rotation = AngleByRot(mouseToWorld);
+            Vector3 rotation = AngleByRot(mouseToWorld - (Vector2)transform.position);
 
-            Vector2 currentPosition = rotation - transform.position;
+            Vector2 currentPosition = rotation ;
         
             vertices[currentVertice] = currentPosition;
         }
