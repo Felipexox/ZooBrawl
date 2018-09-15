@@ -227,7 +227,7 @@ public class MeshGenerator : MonoBehaviour {
 
         for (int i = 0; i < vertices.Count; i++)
         {
-            Vector2 position = Camera.main.WorldToScreenPoint(transform.position +RotByAngle(vertices[i]));
+            Vector2 position = Camera.main.WorldToScreenPoint(RotByAngle(vertices[i]) + transform.position);
            
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -241,12 +241,16 @@ public class MeshGenerator : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            vertices[currentVertice] = mousePosition;
             currentVertice = -1;
         }
         if (Input.GetKey(KeyCode.Mouse0) && currentVertice != -1)
         {
-            Vector2 currentPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+       
+            Vector2 mouseToWorld = Camera.main.ScreenToWorldPoint(mousePosition) ;
+            Vector3 rotation = AngleByRot(mouseToWorld);
+
+            Vector2 currentPosition = rotation - transform.position;
+        
             vertices[currentVertice] = currentPosition;
         }
     }
@@ -259,7 +263,14 @@ public class MeshGenerator : MonoBehaviour {
         Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg), radius * Mathf.Sin((transform.localEulerAngles.z * Mathf.Deg2Rad) + arcTg));
         return rotation;
     }
-
+    public Vector3 AngleByRot(Vector3 Vertice)
+    {
+        Vector3 nulo = Vector3.zero;
+        float radius = (Mathf.Abs(Vertice.x) / Vertice.x) * Vector3.Distance(nulo, Vertice);
+        float arcTg = Mathf.Atan(Vertice.y / Vertice.x);
+        Vector3 rotation = new Vector3(radius * Mathf.Cos((transform.localEulerAngles.z * Mathf.Deg2Rad) - arcTg), -radius * Mathf.Sin((transform.localEulerAngles.z * Mathf.Deg2Rad) - arcTg));
+        return rotation;
+    }
     public int VerticeAmount
     {
         get
