@@ -680,6 +680,7 @@ GameObject:
   - component: {fileID: 1400956194}
   - component: {fileID: 1400956193}
   - component: {fileID: 1400956192}
+  - component: {fileID: 1400956196}
   m_Layer: 0
   m_Name: Torso
   m_TagString: Untagged
@@ -693,7 +694,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1400956191}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e95085050d992de44bf8db1e6becf130, type: 3}
   m_Name: 
@@ -843,6 +844,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400956196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1400956191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a94437f97667404aad98ef45ed75caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backBones: []
 --- !u!1 &1440353896
 GameObject:
   m_ObjectHideFlags: 0
