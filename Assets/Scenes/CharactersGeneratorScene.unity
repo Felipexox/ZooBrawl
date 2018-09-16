@@ -694,7 +694,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1400956191}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e95085050d992de44bf8db1e6becf130, type: 3}
   m_Name: 
@@ -856,6 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backBones: []
+  mesh: {fileID: 1400956192}
 --- !u!1 &1440353896
 GameObject:
   m_ObjectHideFlags: 0

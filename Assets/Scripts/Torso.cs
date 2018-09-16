@@ -29,12 +29,34 @@ public class Torso : MonoBehaviour {
     }
     [SerializeField]
     List< BackBone>  backBones = new List<BackBone>();
+    BackBone centerBone;
+    [SerializeField]
+    MeshGenerator mesh;
     float radius = 0.3f;
     private void Start()
     {
-        backBones.Add(new BackBone(radius));
+        centerBone = new BackBone(radius);
+        backBones.Add(centerBone);
     }
-   
+
+    private void Update()
+    {
+        List<Vector3> vertices = new List<Vector3>();
+        BackBone tempBackBone = centerBone;
+        while(tempBackBone.leftBackBone != null)
+        {
+            tempBackBone = tempBackBone.leftBackBone;
+        }
+        vertices.Add(tempBackBone.position + Vector2.down * 0.5f + Vector2.left*2);
+        vertices.Add(tempBackBone.position + Vector2.up * radius + Vector2.left * 2);
+        while (tempBackBone != null)
+        {
+            vertices.Add(tempBackBone.position + Vector2.down * 2);
+            vertices.Add(tempBackBone.position + Vector2.up * radius);
+            tempBackBone = tempBackBone.rightBackBone; 
+        }
+        mesh.Vertices = vertices;
+    }
     private void OnDrawGizmosSelected()
     {
 
@@ -47,6 +69,11 @@ public class Torso : MonoBehaviour {
             {
                 Gizmos.DrawSphere((backBones[i].position + backBones[i].leftBackBone.position)/2, 0.1f);
        
+            }
+            if (backBones[i].rightBackBone != null)
+            {
+                Gizmos.DrawSphere((backBones[i].position + backBones[i].rightBackBone.position) / 2, 0.1f);
+
             }
         }
     }
