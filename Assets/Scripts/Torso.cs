@@ -47,12 +47,11 @@ public class Torso : MonoBehaviour {
         {
             tempBackBone = tempBackBone.leftBackBone;
         }
-        vertices.Add(tempBackBone.position + Vector2.down * 0.5f + Vector2.left*2);
-        vertices.Add(tempBackBone.position + Vector2.up * radius + Vector2.left * 2);
+
         while (tempBackBone != null)
         {
-            vertices.Add(tempBackBone.position + Vector2.down * 2);
-            vertices.Add(tempBackBone.position + Vector2.up * radius);
+            vertices.Add(tempBackBone.position + Vector2.down * tempBackBone.radius * 2f);
+            vertices.Add(tempBackBone.position + Vector2.up * tempBackBone.radius * 1.2f);
             tempBackBone = tempBackBone.rightBackBone; 
         }
         mesh.Vertices = vertices;
@@ -101,7 +100,14 @@ public class Torso : MonoBehaviour {
         {
             currentBone = -1;
         }
-
+        if (Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.UpArrow) && currentBone != -1)
+        {
+            backBones[currentBone].radius += 0.01f;
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && Input.GetKeyDown(KeyCode.DownArrow) && currentBone != -1)
+        {
+            backBones[currentBone].radius -= 0.01f;
+        }
         if (Input.GetKey(KeyCode.Mouse0) && currentBone != -1)
         {
 
