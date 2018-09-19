@@ -855,7 +855,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a94437f97667404aad98ef45ed75caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backBones: []
+  fat: 0
+  length: 3
+  height: 2
+  vertices:
+  - {x: 0, y: -1, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  teste: 0
   mesh: {fileID: 1400956192}
 --- !u!1 &1440353896
 GameObject:

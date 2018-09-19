@@ -10,7 +10,7 @@ public class MeshGenerator : MonoBehaviour {
 
     [Header("Internal Controller")]
     [SerializeField]
-    private List<Vector3> vertices = new List<Vector3>();
+    public List<Vector3> vertices = new List<Vector3>();
     [SerializeField]
     private Vector3[] normalsV;
     [SerializeField]
@@ -46,12 +46,11 @@ public class MeshGenerator : MonoBehaviour {
         z = transform.position.z;
         teste = transform.position;*/
     }
-    void CreateMesh()
+    public void CreateMesh()
     {
         mesh = new Mesh();
         MeshFilter mf = GetComponent<MeshFilter>();
         mf.mesh = mesh;
-
         mesh.vertices = Vertices.ToArray();
 
         NormalsV = new Vector3[Vertices.Count];
@@ -88,7 +87,7 @@ public class MeshGenerator : MonoBehaviour {
             tempPositions.Add(new Vector3(i, -j, 0));
         }
         tempPositions.Sort((a, b) => a.x.CompareTo(b.x));
-
+        if(tempPositions.Count > 4)
         for(int i =0; i<tempPositions.Count;i++)
         {
             if(i%2==0)
